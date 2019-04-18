@@ -1,0 +1,7 @@
+{
+  "name": "concesionario",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

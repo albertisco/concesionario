@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Productos</ion-title>
+        <ion-buttons slot="end">
+            <ion-button routerLink="/home/productos/carrito">
+                <ion-icon name="cart"></ion-icon>
+                <ion-badge color="danger" class="badge" *ngIf="cs.carrito.length > 0">{{cs.carrito.length}}</ion-badge>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+
+    <ion-grid>
+        <ion-row *ngFor="let producto of _productoService.productos">
+            <ion-col>
+                <img [src]="producto.codigo | imagenPipe" (click)="productoElegido(producto.codigo)">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+  
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" [disabled]="cargar">
+            <ion-infinite-scroll-content
+              loadingSpinner="bubbles"
+              loadingText="Cargando">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+  </ion-content>

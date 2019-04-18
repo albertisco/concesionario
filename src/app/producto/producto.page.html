@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+          [text]="'Volver'"
+          [mode]="'ios'">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="listo">{{titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="listo; else sino">
+
+  <ion-row>
+    <ion-col>
+      <img [src]="producto.codigo | imagenPipe">
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+        <p class="negrita">{{titulo}} {{producto.precio_compra | currency:'€'}}</p>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <p>{{producto.descripcion}}</p>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+      <ion-col>
+        <p class="negrita">{{producto.proveedor}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-button expand="block" color="primary" (click)="cs.agregarCarrito(producto)">
+                <ion-icon name="cart"></ion-icon>
+                Agregar al carrito
+            </ion-button>
+        </ion-col>
+      </ion-row>
+</ion-content>
+<ng-template #sino>
+  <h1>Cargando</h1>
+</ng-template>
+
