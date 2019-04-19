@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from '../services/usuarios.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 
 
 @Component({
@@ -29,7 +29,8 @@ export class LoginPage implements OnInit {
                           const respjson = resp.json();
                           this._usuarioService.token = respjson.token;
                           this._usuarioService.id_usuario = respjson.usuarioLogin._id;
-                          this.router.navigate(['/home/productos/carrito']);
+                          this._usuarioService.guardarStorage();
+                          this.router.navigate(['/home/productos']);
                         })
                         .catch( async (error) => {
                           const errorjson = error.json();
@@ -50,5 +51,6 @@ export class LoginPage implements OnInit {
                           await alert.present();
                         });
   }
+
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../services/productos.service';
 import {Router} from '@angular/router';
 import { CarritoService } from '../services/carrito.service';
+import { UsuariosService } from '../services/usuarios.service';
 
 @Component({
   selector: 'app-productos',
@@ -14,7 +15,8 @@ export class ProductosPage implements OnInit {
   compras: number;
   constructor(public _productoService: ProductosService,
               public _router: Router,
-              public cs: CarritoService) {
+              public cs: CarritoService,
+              public _usuarioService: UsuariosService) {
   }
 
   ngOnInit() {

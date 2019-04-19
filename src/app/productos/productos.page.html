@@ -1,5 +1,10 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start" *ngIf="_usuarioService.token" (click)="_usuarioService.cerrar_session()">
+            <ion-button color="primary">
+                <ion-label>Cerrar</ion-label>
+            </ion-button>
+        </ion-buttons>
         <ion-title>Productos</ion-title>
         <ion-buttons slot="end">
             <ion-button routerLink="/home/productos/carrito">
