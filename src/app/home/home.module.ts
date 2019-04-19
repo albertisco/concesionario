@@ -26,7 +26,13 @@ import { LoginGuard } from '../guards/login.guard';
             {path: 'carrito', loadChildren: '../carrito/carrito.module#CarritoPageModule', canActivate: [LoginGuard]}
           ]
         },
-          { path: 'ordenes', loadChildren: '../ordenes/ordenes.module#OrdenesPageModule' },
+          { path: 'ordenes',
+           children: [
+             {path: '' , loadChildren: '../ordenes/ordenes.module#OrdenesPageModule'},
+             {path: 'detalle/:orden', loadChildren: '../ordenes-detalle/ordenes-detalle.module#OrdenesDetallePageModule'}
+           ]
+          }
+          ,
           { path: 'categorias',
             children: [
               {path: '', loadChildren: '../categorias/categorias.module#CategoriasPageModule'},

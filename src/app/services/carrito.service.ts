@@ -123,4 +123,17 @@ export class CarritoService {
 
     return this.http.post(url, urlparams).toPromise();
   }
+
+  obtenerOrdenes () {
+
+    const url = `${environment.url_servicio}/orden/pedido/${this._usuarioService.id_usuario}`;
+
+    return this.http.get(url).toPromise();
+  }
+
+  obtenerOrdenById (idorden) {
+    const url = `${environment.url_servicio}/orden/pedido/detalle/${idorden}`;
+
+    return this.http.get(url).toPromise();
+  }
 }
