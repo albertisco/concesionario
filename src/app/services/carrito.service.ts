@@ -136,4 +136,10 @@ export class CarritoService {
 
     return this.http.get(url).toPromise();
   }
+
+  eliminarOrdenById (idOrden) {
+    const url = `${environment.url_servicio}/orden/${idOrden}`;
+
+    return this.http.delete(url).toPromise();
+  }
 }

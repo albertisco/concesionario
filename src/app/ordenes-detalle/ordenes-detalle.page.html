@@ -1,6 +1,33 @@
-<ion-content>
-<ion-card>
+<ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+              <ion-back-button
+                  [text]="'Volver'"
+                  [mode]="'ios'">
+              </ion-back-button>
+            </ion-buttons>
+        </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="orden">
+<ion-card *ngFor="let producto of orden.productos">
     <ion-card-header>
+        <ion-img [src]="producto.codigo | imagenPipe"></ion-img>
     </ion-card-header>
+    <ion-card-content>
+        <ion-list [lines]="'none'">
+            <ion-item>
+                <p>{{producto.producto}}</p>    
+            </ion-item>
+            <ion-item>
+                <p>{{producto.proveedor}}</p>
+            </ion-item>
+            <ion-item>
+                <p>{{producto.precio_compra | currency:'EUR'}}</p>
+            </ion-item>
+        </ion-list>
+    </ion-card-content>
 </ion-card>
+<ion-button [expand]="'block'" color="danger" (click)="eliminarOrden()">
+    <ion-label>Eliminar orden</ion-label>
+</ion-button>
 </ion-content>
