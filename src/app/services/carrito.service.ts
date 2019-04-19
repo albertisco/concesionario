@@ -3,6 +3,9 @@ import { Producto } from 'src/models/producto.interface';
 import { AlertController, Platform } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Http, URLSearchParams } from '@angular/http';
+import { environment } from 'src/environments/environment';
+import { UsuariosService } from './usuarios.service';
 
 
 @Injectable({
@@ -15,7 +18,9 @@ export class CarritoService {
   constructor(private alert: AlertController,
               private location: Location,
               public storage: NativeStorage,
-              private _platform: Platform) {
+              private _platform: Platform,
+              private http: Http,
+              private _usuarioService: UsuariosService) {
                 this.cargarStorage();
                this.precioTotal = this.obtenerTotalCompra();
   }
@@ -26,7 +31,6 @@ export class CarritoService {
         const ocurrencia = this.carrito.find((producto) => {
           return producto.codigo === productoAgregar.codigo;
         });
-        console.log('ocurrencia', ocurrencia);
         if (!ocurrencia) {
           this.carrito.push(productoAgregar);
         } else {
@@ -66,11 +70,9 @@ export class CarritoService {
   }
 
   cargarStorage () {
-    console.log('cargar storage');
     if (this._platform.is('cordova')) {
       this.storage.getItem('carrito')
                 .then( carrito => {
-                  console.log('then');
                   if (carrito) {
                     this.carrito = carrito;
                   } else {
@@ -87,7 +89,6 @@ export class CarritoService {
   }
 
   guardarStorage () {
-    console.log(this.carrito.length);
     if (this._platform.is('cordova')) {
       this.storage.setItem('carrito', this.carrito);
     } else {
@@ -103,5 +104,23 @@ export class CarritoService {
       });
     }
     return total;
+  }
+
+  eliminarProductoCarrito (indice: number) {
+    this.carrito.splice(indice, 1);
+    this.guardarStorage();
+    this.precioTotal = this.obtenerTotalCompra();
+  }
+
+  realizarCompra () {
+
+    const urlparams = new URLSearchParams();
+    this.carrito.forEach(productos => {
+      urlparams.append('productos', productos._id);
+    });
+    urlparams.append('usuario', this._usuarioService.id_usuario);
+    const url = `${environment.url_servicio}/orden`;
+
+    return this.http.post(url, urlparams).toPromise();
   }
 }

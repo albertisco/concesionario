@@ -19,7 +19,7 @@
 
   <ng-template #productos>
     <ion-grid>
-      <ion-row *ngFor="let producto of _carritoService.carrito">
+      <ion-row *ngFor="let producto of _carritoService.carrito; let i of index">
         <ion-col [size]="4">
           <ion-img [src]="producto.codigo | imagenPipe"></ion-img>
         </ion-col>
@@ -35,7 +35,7 @@
               <ion-label>{{producto.precio_compra | currency:'EUR':'symbol'}}</ion-label>
             </ion-item>
             <ion-item>
-              <ion-button color="danger" fill="outline">
+              <ion-button color="danger" fill="outline" (click)="eliminarProducto(i)">
                   <ion-label>Eliminar producto</ion-label>
               </ion-button>
             </ion-item>
@@ -49,7 +49,7 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-button color="primary" expand="block" fill="outline">
+          <ion-button color="primary" expand="block" fill="outline" (click)="comprar()">
             <ion-label>Comprar</ion-label>
           </ion-button>
         </ion-col>
