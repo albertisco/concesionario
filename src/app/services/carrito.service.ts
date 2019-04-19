@@ -10,12 +10,14 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 })
 export class CarritoService {
   carrito: Array<Producto>;
+  precioTotal: number = 0;
 
   constructor(private alert: AlertController,
               private location: Location,
               public storage: NativeStorage,
               private _platform: Platform) {
                 this.cargarStorage();
+               this.precioTotal = this.obtenerTotalCompra();
   }
 
    async agregarCarrito(productoAgregar: Producto) {
@@ -54,6 +56,7 @@ export class CarritoService {
         {
           text: 'Seguir comprando',
           handler: () => {
+            this.precioTotal = this.obtenerTotalCompra();
             this.location.back();
           }
         }
@@ -90,5 +93,15 @@ export class CarritoService {
     } else {
       localStorage.setItem('carrito', JSON.stringify(this.carrito));
     }
+  }
+
+  obtenerTotalCompra () {
+    let total = 0;
+    if (this.carrito.length > 0) {
+      this.carrito.forEach(producto => {
+          total += Number(producto.precio_compra);
+      });
+    }
+    return total;
   }
 }
