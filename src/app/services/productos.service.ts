@@ -35,4 +35,10 @@ export class ProductosService {
     return this.http.get(url)
                .toPromise();
   }
+
+  buscador (busqueda: string) {
+    const url = `${environment.url_servicio}/producto/${busqueda}`;
+
+    return this.http.get(url).toPromise();
+  }
 }

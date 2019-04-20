@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>buscador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Buscar" (ionChange)="buscar($event)"></ion-searchbar>
+  <ion-list *ngIf="productos">
+    <ion-item *ngFor="let producto of productos" [routerLink]="['/home/buscador/detalle', producto.codigo]">
+      <ion-label>{{producto.producto}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -38,7 +38,16 @@ import { LoginGuard } from '../guards/login.guard';
               {path: '', loadChildren: '../categorias/categorias.module#CategoriasPageModule'},
               { path: 'porcategorias/:id', loadChildren: '../por-categorias/por-categorias.module#PorCategoriasPageModule' },
               {path: 'producto/:codigo', loadChildren: '../producto/producto.module#ProductoPageModule'}
-            ]},
+            ]
+          }
+          ,
+          {
+            path: 'buscador' , children: [
+              {path: '', loadChildren: '../buscador/buscador.module#BuscadorPageModule'},
+              {path: 'detalle/:codigo' , loadChildren: '../producto/producto.module#ProductoPageModule'}
+            ]
+          }
+          ,
           { path: '', redirectTo: 'productos', pathMatch: 'full' }
         ],
       },
